@@ -1,0 +1,20 @@
+
+GiG-Gene interacts Gene
+CrC-Compound resembles Compound
+DdG-Disease downregulates Gene
+DlA-Disease localizes Anatomy
+CtD-Compound treats Disease
+CbG-Compound binds Gene
+CuG-Compound upregulates Gene
+DrD-Disease resembles Disease
+DaG-Disease associates Gene
+CpD-Compound palliates Disease
+AdG-Anatomy downregulates Gene
+AuG-Anatomy upregulates Gene
+GcG-Gene covaries Gene
+Gr>G-Gene regulates Gene
+CdG-Compound downregulates Gene
+DuG-Disease upregulates Gene
+AeG-Anatomy expresses Gene
+
+
