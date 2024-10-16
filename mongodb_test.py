@@ -6,7 +6,7 @@ MONGODB_URI = "mongodb+srv://jameefahim:bigdata@hetionet.q0qji.mongodb.net/?retr
 # Connect to MongoDB
 client = MongoClient(MONGODB_URI)
 
-# Connect to the database
+# Connect to the database 493
 db = client["493"]
 
 
@@ -69,6 +69,6 @@ def get_disease_info(db, disease_id):
 
 
 # Execute
-disease_id = "Disease::DOID:1686" # TODO: Only the Number
+disease_id = "Disease::DOID:2355" # TODO: Only the Number
 get_disease_info(db, disease_id)
 
