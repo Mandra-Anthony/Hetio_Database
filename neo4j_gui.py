@@ -20,7 +20,7 @@ class Neo4jApp:
             MATCH (c:Compound)-[cr:CuG|CdG]->(g:Gene)
             MATCH (d:Disease {id: $disease_id})  // Use a parameter for the disease ID
             WHERE NOT (c)-[:CtD]->(d)  // Exclude existing treatment relationships
-            MATCH (d)-[dr:DaG|DuG|DdG]->(g)  // Find relationships between the disease and genes
+            MATCH (d)-[dr:DuG|DdG]->(g)  // Find relationships between the disease and genes
             RETURN DISTINCT c.name AS Compound, d.name AS Disease, g.name AS Target_Gene
             """
             result = session.run(query, disease_id=disease_id)
