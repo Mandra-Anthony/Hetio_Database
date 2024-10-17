@@ -1,6 +1,6 @@
 import tkinter as tk
 from neo4j import GraphDatabase
-from tkinter import messagebox
+from tkinter import messagebox, scrolledtext
 import re
 
 
@@ -38,18 +38,21 @@ class Neo4jGUI:
 
         # Label for Disease Input
         self.label = tk.Label(root, text="Enter Disease ID:")
-        self.label.pack()
+        self.label.pack(pady=5)
 
         # Input Field for Disease
-        self.disease_input = tk.Entry(root)
-        self.disease_input.pack()
+        self.disease_input = tk.Entry(root, width=50)
+        self.disease_input.pack(pady=5)
 
         # Button to Query Neo4j
         self.query_button = tk.Button(root, text="Find Compounds", command=self.query_db)
         self.query_button.pack()
 
+        frame = tk.Frame(root)
+        frame.pack(pady=5, fill=tk.BOTH, expand=True)
+
         # Text Area to Display Results
-        self.result_text = tk.Text(root, height=100, width=100)
+        self.result_text = scrolledtext.ScrolledText(frame, wrap=tk.WORD, height=100, width=100)
         self.result_text.pack()
 
     # Function to handle the query and display results

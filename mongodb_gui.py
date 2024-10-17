@@ -61,8 +61,7 @@ def search_disease():
 
 
 root = tk.Tk()
-root.title("HetioNet")
-root.iconphoto(False, tk.PhotoImage(file="icon.png")) # Icon
+root.title("MongoDB Hetio_Database GUI")
 
 tk.Label(root, text="Enter Disease ID:").pack(pady=5)
 entry = tk.Entry(root, width=50)
@@ -74,7 +73,7 @@ frame = tk.Frame(root)
 frame.pack(pady=5, fill=tk.BOTH, expand=True)
 
 # text widget
-text_result = scrolledtext.ScrolledText(frame, wrap=tk.WORD, height=20, width=80)
+text_result = scrolledtext.ScrolledText(frame, wrap=tk.WORD, height=100, width=100)
 text_result.pack(pady=5, fill=tk.BOTH, expand=True)
 
 root.mainloop()

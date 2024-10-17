@@ -9,14 +9,24 @@
   <component name="ChangeListManager">
     <list default="true" id="295f5ef9-6f7d-4a42-8337-4f66c765591c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongodb_interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb_queries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongodb_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/edges.tsv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/metaedges.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongodb_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neo4j_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/neo4j_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes.tsv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -34,19 +44,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.aggregate_db.executor&quot;: &quot;Run&quot;,
-    &quot;Python.gui.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mongodb_1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mongodb_test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.unique_metaedge.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;G:/Games/MongoDB/proj/mongodb_test.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.aggregate_db.executor": "Run",
+    "Python.gui.executor": "Run",
+    "Python.mongodb_1.executor": "Run",
+    "Python.mongodb_gui.executor": "Run",
+    "Python.mongodb_test.executor": "Run",
+    "Python.neo4j_gui.executor": "Run",
+    "Python.unique_metaedge.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "G:/Games/MongoDB/proj/mongodb_test.py",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\Games\MongoDB\proj" />
