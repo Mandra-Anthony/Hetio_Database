@@ -9,7 +9,7 @@ client = MongoClient(MONGODB_URI)
 db = client["493"]
 
 def get_disease_info(disease_id):
-    print(f"Querying for disease ID: {disease_id}")  # Debug print
+    print(f"Querying for disease ID: {disease_id} .....")  # Debug
     # Match the disease node by its ID and get the name
     disease = db.nodes.find_one({"id": disease_id, "kind": "Disease"}, {"name": 1, "_id": 0})
     if not disease:
