@@ -17,11 +17,12 @@ class Neo4jApp:
             query = """
             MATCH (c:Compound)-[cr:CuG|CdG]->(g:Gene)  // Compound upregulates or downregulates genes
             MATCH (d:Disease {id: $disease_id})  // Use a parameter for the disease ID
-            MATCH (d)-[dr:DuG|DaG|DdG]->(g)   // Make sure disease has edges to the same gene
+            MATCH (d)-[dr:DdG|DuG]->(g)   // Disease upregulates or downregulates the same gene
             MATCH (d)-[:DlA]->(a:Anatomy)-[ar:AuG|AdG]->(g)  // Disease occurs in a specific anatomical location and anatomy upregulates or downregulates the same gene
             WHERE NOT (c)-[:CtD]->(d)  // Exclude existing treatment relationships
             AND (
-                (cr:CuG AND ar:AdG) OR (cr:CdG AND ar:AuG) // Ensure opposite regulation direction
+                (cr:CuG AND ar:AdG AND dr: DdG) 
+                OR (cr:CdG AND ar:AuG AND dr: DuG) // Ensure opposite regulation direction
             )
             RETURN DISTINCT c.name AS Compound, d.name AS Disease, g.name AS Target_Gene
             """
