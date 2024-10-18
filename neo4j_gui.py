@@ -1,12 +1,10 @@
 import tkinter as tk
 from neo4j import GraphDatabase
-from tkinter import messagebox, scrolledtext
+from tkinter import messagebox
 import re
-
 
 # Neo4j connection
 class Neo4jApp:
-
     def __init__(self, uri, user, password):
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
 
@@ -17,20 +15,22 @@ class Neo4jApp:
     def find_compounds_for_disease(self, disease_id):
         with self.driver.session() as session:
             query = """
-            MATCH (c:Compound)-[cr:CuG|CdG]->(g:Gene)
+            MATCH (c:Compound)-[cr:CuG|CdG]->(g:Gene)  // Compound upregulates or downregulates genes
             MATCH (d:Disease {id: $disease_id})  // Use a parameter for the disease ID
+            MATCH (d)-[dr:DuG|DaG|DdG]->(g)   // Make sure disease has edges to the same gene
+            MATCH (d)-[:DlA]->(a:Anatomy)-[ar:AuG|AdG]->(g)  // Disease occurs in a specific anatomical location and anatomy upregulates or downregulates the same gene
             WHERE NOT (c)-[:CtD]->(d)  // Exclude existing treatment relationships
-            MATCH (d)-[dr:DuG|DdG]->(g)  // Find relationships between the disease and genes
+            AND (
+                (cr:CuG AND ar:AdG) OR (cr:CdG AND ar:AuG) // Ensure opposite regulation direction
+            )
             RETURN DISTINCT c.name AS Compound, d.name AS Disease, g.name AS Target_Gene
             """
             result = session.run(query, disease_id=disease_id)
             compounds = [(record["Compound"], record["Disease"], record["Target_Gene"]) for record in result]
             return compounds
 
-
 # GUI Setup
 class Neo4jGUI:
-
     def __init__(self, root, db_app):
         self.db_app = db_app
         self.root = root
@@ -38,22 +38,23 @@ class Neo4jGUI:
 
         # Label for Disease Input
         self.label = tk.Label(root, text="Enter Disease ID:")
-        self.label.pack(pady=5)
+        self.label.pack()
 
         # Input Field for Disease
-        self.disease_input = tk.Entry(root, width=50)
-        self.disease_input.pack(pady=5)
+        self.disease_input = tk.Entry(root)
+        self.disease_input.pack()
 
         # Button to Query Neo4j
         self.query_button = tk.Button(root, text="Find Compounds", command=self.query_db)
         self.query_button.pack()
 
-        frame = tk.Frame(root)
-        frame.pack(pady=5, fill=tk.BOTH, expand=True)
-
         # Text Area to Display Results
-        self.result_text = scrolledtext.ScrolledText(frame, wrap=tk.WORD, height=100, width=100)
+        self.result_text = tk.Text(root, height=20, width=100)
         self.result_text.pack()
+
+        # Label to Display Count of Compounds
+        self.count_label = tk.Label(root, text="")
+        self.count_label.pack()
 
     # Function to handle the query and display results
     def query_db(self):
@@ -64,15 +65,23 @@ class Neo4jGUI:
 
         # Normalize the disease ID format
         disease_id = self.normalize_disease_id(user_input)
+        if disease_id is None:
+            return
 
         try:
             results = self.db_app.find_compounds_for_disease(disease_id)
             self.result_text.delete(1.0, tk.END)  # Clear previous results
+            # Clear the count label before updating it
+            self.count_label.config(text="")
+
             if results:
+                # Display results and count
                 for compound, disease, gene in results:
                     self.result_text.insert(tk.END, f"Compound: {compound}, Disease: {disease}, Gene: {gene}\n")
+                self.count_label.config(text=f"Total Compounds Found: {len(results)}")
             else:
                 self.result_text.insert(tk.END, "No compounds found for this disease.\n")
+                self.count_label.config(text="Total Compounds Found: 0")
         except Exception as e:
             messagebox.showerror("Database Error", str(e))
 
@@ -82,7 +91,6 @@ class Neo4jGUI:
         input_id = input_id.strip()
 
         # Ensure format of "Disease::[A-Za-z]:[0-9]" (case insensitive for "Disease")
-        # This will ensure that the disease part is capitalized, while the rest follows the pattern.
         match = re.match(r"([a-zA-Z]+)::([a-zA-Z]+):(\d+)", input_id)
         if match:
             disease = match.group(1).capitalize()
@@ -93,7 +101,6 @@ class Neo4jGUI:
         else:
             messagebox.showerror("Input Error", "Invalid Disease ID format.")
             return None
-
 
 if __name__ == "__main__":
     # Create Neo4j connection
